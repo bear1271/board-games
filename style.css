@@ -1,0 +1,87 @@
+:root {
+  --bg: #f4f1ea;
+  --panel: #fffdf8;
+  --ink: #23201b;
+  --muted: #7a7266;
+  --line: #e0d9cc;
+  --accent: #b5502b;
+  --accent-ink: #fff;
+  --good: #2f8f4e;
+  --bad: #c0392b;
+  --wood: #e9c98f;
+  --wood-line: #6b4a22;
+  --sq-light: #efe3c8;
+  --sq-dark: #b48a5a;
+  --hl: rgba(255, 214, 64, .55);
+  --sel: rgba(80, 160, 255, .55);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1b1a17; --panel: #252420; --ink: #ece7dc; --muted: #a39b8d; --line: #3a3832;
+    --accent: #e07a4f; --wood: #c9a46a; --wood-line: #3d2a12;
+    --sq-light: #d9c9a6; --sq-dark: #8f6a40;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.5 "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+}
+header {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  padding: 14px 24px; border-bottom: 1px solid var(--line);
+}
+h1 { font-size: 20px; margin: 0; letter-spacing: 2px; }
+nav button {
+  border: 0; background: none; color: var(--muted); font: inherit; font-size: 16px;
+  padding: 6px 14px; border-radius: 999px; cursor: pointer;
+}
+nav button.active { background: var(--accent); color: var(--accent-ink); }
+main {
+  display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px;
+  max-width: 1200px; margin: 0 auto; padding: 20px 16px;
+}
+@media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+.board-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+#board { width: 100%; max-width: 640px; height: auto; user-select: none; }
+#board .click { cursor: pointer; }
+.status { font-size: 17px; min-height: 26px; text-align: center; }
+.status.thinking::after { content: " …"; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: .2; } }
+.actions { display: flex; gap: 10px; }
+button, select, input {
+  font: inherit; color: var(--ink); background: var(--panel);
+  border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px;
+}
+.actions button { cursor: pointer; }
+.actions button:hover { border-color: var(--accent); }
+aside { display: flex; flex-direction: column; gap: 12px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.card h2 { font-size: 14px; margin: 0 0 8px; color: var(--muted); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+label { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 6px 0; }
+label select { width: 150px; }
+label.small { font-size: 13px; color: var(--muted); }
+label.small input { width: 190px; font-size: 13px; padding: 3px 6px; }
+.muted { color: var(--muted); }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); display: inline-block; }
+.dot.on { background: var(--good); }
+.dot.off { background: var(--bad); }
+.think { font-size: 13px; }
+.think b { color: var(--ink); }
+.think .where { display: inline-block; padding: 0 8px; border-radius: 999px; font-size: 12px; color: #fff; margin-right: 4px; }
+.where.laptop { background: #4f7cac; }
+.where.ws { background: var(--accent); }
+.evalbar { height: 8px; background: #333; border-radius: 4px; overflow: hidden; margin-top: 8px; }
+.evalbar div { height: 100%; width: 50%; background: #eee; transition: width .4s; }
+.log { margin: 0; padding-left: 18px; font-size: 12.5px; color: var(--muted); max-height: 180px; overflow: auto; }
+.log li { margin-bottom: 4px; }
+.moves { font: 13px/1.7 Consolas, monospace; max-height: 200px; overflow: auto; }
+.moves span { margin-right: 10px; white-space: nowrap; }
+.hint { font-size: 12.5px; color: var(--muted); margin: -2px 0 6px; text-align: right; }
+label.check { justify-content: flex-start; font-size: 13px; color: var(--muted); }
+.weak { color: var(--accent); }
+header .lang { margin-left: auto; cursor: pointer; font-size: 14px; }
+footer { max-width: 1200px; margin: 0 auto; padding: 8px 16px 24px; font-size: 12.5px; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap; }
+footer a { color: var(--accent); }
+.where.sf { background: #4f7cac; }
+[hidden] { display: none !important; }

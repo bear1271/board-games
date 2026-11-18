@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Chess, xiangqi and gomoku against AI in seven difficulty levels, all computed in your browser. 国际象棋、象棋、五子棋人机对弈，七档难度，全部在浏览器里计算。">
+<title>三棋对弈</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1 data-i18n="title">三棋对弈</h1>
+  <nav id="tabs">
+    <button data-game="chess" data-i18n="game.chess" class="active">国际象棋</button>
+    <button data-game="xiangqi" data-i18n="game.xiangqi">象棋</button>
+    <button data-game="gomoku" data-i18n="game.gomoku">五子棋</button>
+  </nav>
+  <button id="btn-lang" class="lang" data-i18n="btn.lang">English</button>
+</header>
+
+<main>
+  <section class="board-wrap">
+    <div id="status" class="status"></div>
+    <svg id="board" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="actions">
+      <button id="btn-new" data-i18n="btn.new">新局</button>
+      <button id="btn-undo" data-i18n="btn.undo">悔棋</button>
+      <button id="btn-flip" data-i18n="btn.flip">翻转棋盘</button>
+    </div>
+  </section>
+
+  <aside>
+    <div class="card">
+      <h2 data-i18n="card.game">对局</h2>
+      <label><span data-i18n="label.mode">模式</span>
+        <select id="mode">
+          <option value="first" data-i18n="mode.first">我执先手</option>
+          <option value="second" data-i18n="mode.second">我执后手</option>
+          <option value="pvp" data-i18n="mode.pvp">双人对弈</option>
+          <option value="ava" data-i18n="mode.ava">AI 自己下（观战）</option>
+        </select>
+      </label>
+      <label><span data-i18n="label.level">难度</span> <select id="level"></select></label>
+      <div id="level-hint" class="hint"></div>
+      <label class="check"><input type="checkbox" id="auto-level"> <span data-i18n="auto.level">赢了升一档，输了降一档</span></label>
+      <label id="where-row"><span data-i18n="label.where">计算位置</span>
+        <select id="where">
+          <option value="auto" data-i18n="where.auto">自动分工</option>
+          <option value="laptop" data-i18n="where.laptop">只用笔记本</option>
+          <option value="ws" data-i18n="where.ws">只用工作站</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="card" id="ws-card">
+      <h2><span data-i18n="card.ws">工作站</span> <span id="ws-dot" class="dot"></span></h2>
+      <div id="ws-info" class="muted">检测中…</div>
+      <label class="small"><span data-i18n="label.addr">地址</span> <input id="ws-url" spellcheck="false"></label>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="card.last">上一步 AI</h2>
+      <div id="think" class="think muted">还没有 AI 走棋</div>
+      <div id="evalbar" class="evalbar"><div></div></div>
+    </div>
+
+    <div class="card">
+      <h2 id="log-title" data-i18n="card.log">分工记录</h2>
+      <ol id="log" class="log"></ol>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="card.moves">棋谱</h2>
+      <div id="moves" class="moves"></div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <a id="home-link" href="https://sirunwang.com/" hidden data-i18n="foot.home">← 返回主页</a>
+  <span data-i18n="foot.credits"></span>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
